@@ -2,17 +2,21 @@ import { Injectable } from '@angular/core';
 import { AUTH_CONFIG } from './auth0-variables';
 import { Router } from '@angular/router';
 import * as auth0 from 'auth0-js';
+import * as jwt_decode from 'jwt-decode';
 
 (window as any).global = window;
 
 @Injectable()
 export class AuthService {
 
+
+  authResult:any;
   auth0 = new auth0.WebAuth({
     clientID: AUTH_CONFIG.clientID,
     domain: AUTH_CONFIG.domain,
     responseType: 'token id_token',
-    redirectUri: AUTH_CONFIG.callbackURL
+    redirectUri: AUTH_CONFIG.callbackURL,
+    scope: 'openid profile create:contacts read:contacts delete:contacts'
   });
 
   constructor(public router: Router) {}
@@ -40,6 +44,15 @@ export class AuthService {
     localStorage.setItem('access_token', authResult.accessToken);
     localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', expiresAt);
+      
+    this.authResult = authResult;
+    console.log(authResult);
+    console.log('access_token:'+authResult.accessToken);  
+    console.log('id_token:'+authResult.idToken);  
+    console.log('expiresAt:'+expiresAt);  
+
+    console.log('scopes:'+authResult.scope);
+    // this.getClaims();
   }
 
   public logout(): void {
@@ -56,6 +69,30 @@ export class AuthService {
     // access token's expiry time
     const expiresAt = JSON.parse(localStorage.getItem('expires_at') || '{}');
     return new Date().getTime() < expiresAt;
+  }
+
+ public getUserName(): string{
+  let idToken = localStorage.getItem('id_token');
+  let decodedIDToken = jwt_decode(idToken);
+  console.log(decodedIDToken);
+  console.log(decodedIDToken.name);
+  return decodedIDToken.name;
+ }
+
+  public getScopes(): any {
+    let idToken = localStorage.getItem('id_token');
+    // console.log('Decoding ID token');
+    // console.log(jwt_decode(idToken));
+    return this.authResult.scope;
+  }
+
+
+  public getDecodedIDToken(): any{
+    let idToken = localStorage.getItem('id_token');
+    // console.log('Decoding ID token');
+    let decodedIDToken = jwt_decode(idToken);
+    console.log(decodedIDToken);
+    return decodedIDToken;
   }
 
 }
