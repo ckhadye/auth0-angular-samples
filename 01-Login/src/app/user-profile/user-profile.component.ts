@@ -11,9 +11,9 @@ import { UserService } from '../user-service.service';
 })
 export class UserProfileComponent implements OnInit {
 
-   private userInfo:any;
+   userInfo:any;
     
-    private urlJson = 'assets/jsons';
+   private urlJson = 'assets/jsons';
     
     
   constructor(private authService:AuthService, private router: Router, private http: HttpClient, private userService: UserService) { }
