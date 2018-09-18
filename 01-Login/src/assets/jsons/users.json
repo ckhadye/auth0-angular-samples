@@ -40,5 +40,12 @@
         "age":34,
         "gender":"M",
         "country":"India"    
+        },
+    {
+        "id":7,
+        "name":"user1@chetank.com",
+        "age":34,
+        "gender":"M",
+        "country":"India"    
         }
 ]
