@@ -11,7 +11,7 @@ import { UserService } from '../user-service.service';
 })
 export class UserProfileComponent implements OnInit {
 
-   userInfo:any;
+   private userInfo:any;
     
    private urlJson = 'assets/jsons';
     
