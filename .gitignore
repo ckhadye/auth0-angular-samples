@@ -3,3 +3,7 @@ node_modules
 auth0-variables.ts
 .env
 npm-debug.log
+/.vs
+/bin
+/obj
+/Auth0Angular.njsproj

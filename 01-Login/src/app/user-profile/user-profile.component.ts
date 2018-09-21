@@ -19,7 +19,7 @@ export class UserProfileComponent implements OnInit {
   constructor(private authService:AuthService, private router: Router, private http: HttpClient, private userService: UserService) { }
 
   ngOnInit() {
-      console.log('Inside userprofile init !!!');
+      console.log('Inside userprofile init');
    
     this.userInfo = this.userService.getUserInfo();
     //console.log('Displaying userInfo');
